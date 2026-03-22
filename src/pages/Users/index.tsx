@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert, Avatar, Breadcrumb, Button, Card, Space, Table, Tag, Tooltip, Typography } from "antd";
+import { Alert, Avatar, Button, Space, Table, Tag, Tooltip, Typography } from "antd";
 import { useQuery } from "@tanstack/react-query";
 import { fetchUsers, type User } from "../../services/users";
 import type { ColumnsType } from "antd/es/table";
@@ -8,7 +8,7 @@ import { DeleteOutlined, EditOutlined, GlobalOutlined, UserOutlined } from "@ant
 const { Text, Link } = Typography;
 
 export const UsersPage: React.FC = () => {
-  const { data, isLoading, isError, error } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["users"],
     queryFn: fetchUsers,
     staleTime: 1000 * 60 * 5, // 5 minutos
@@ -104,31 +104,23 @@ export const UsersPage: React.FC = () => {
 
   return (
     <Space orientation='vertical' size='large' style={{ width: "100%" }}>
-      <Breadcrumb
-        items={[
-          { title: "Home" },
-          { title: "Usuários" },
-        ]}
-      />
-
       {isError && (
         <Alert
-          title='Erro'
-          description={(error as Error).message}
+          title='Erro ao carregar usuários'
+          description='Não foi possível carregar os usuários. Por favor, tente novamente mais tarde.'
           type='error'
           showIcon
         />
       )}
 
-      <Card>
-        <Table
-          dataSource={data}
-          columns={columns}
-          rowKey='id'
-          loading={isLoading}
-          pagination={{ pageSize: 5 }}
-        />
-      </Card>
+      <Table
+        dataSource={data}
+        columns={columns}
+        rowKey='id'
+        loading={isLoading}
+        pagination={{ pageSize: 5 }}
+        bordered
+      />
     </Space>
   );
 };

@@ -103,7 +103,7 @@ export const UsersPage: React.FC = () => {
   ];
 
   return (
-    <Space orientation="vertical" size="middle">
+    <Space orientation="vertical" size="middle" style={{ width: "100%" }}>
       {isError && (
         <Alert
           title='Erro ao carregar usuários'

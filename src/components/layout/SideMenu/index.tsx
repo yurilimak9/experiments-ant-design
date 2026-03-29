@@ -1,6 +1,9 @@
 import React from "react";
 import { Layout, Menu } from "antd";
 import { DashboardOutlined, UserOutlined } from "@ant-design/icons";
+import logoImg from "../../../assets/logo.png";
+import iconImg from "../../../assets/icon.png";
+import { styles } from './styles';
 
 const { Sider } = Layout;
 
@@ -23,9 +26,20 @@ export const SideMenu: React.FC<SideMenuProps> = ({ collapsed, currentPath, onNa
       label: "Usuários",
     }
   ]
+
   return (
     <Sider trigger={null} collapsible collapsed={collapsed} theme="light">
-      <div className="demo-logo-vertical" style={{ height: 64, margin: 16, background: 'rgba(0,0,0,0.05)', borderRadius: 6 }} />
+      <div style={styles.logoContainer}>
+        <img
+          src={collapsed ? iconImg : logoImg}
+          alt="Logotipo"
+          style={{
+            ...styles.logoImage,
+            maxHeight: collapsed ? '32px' : '',
+            maxWidth: collapsed ? '32px' : '120px',
+          }}
+        />
+      </div>
       <Menu
         theme="light"
         mode="inline"

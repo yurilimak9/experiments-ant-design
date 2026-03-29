@@ -13,7 +13,7 @@ router.update({
 })
 
 function App() {
-  const isDarkMode = true;
+  const isDarkMode = false;
 
   return (
     <ConfigProvider theme={{

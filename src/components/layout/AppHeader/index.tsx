@@ -1,8 +1,8 @@
 import React from "react";
 import { Avatar, Button, Dropdown, Layout, Space, theme, Typography } from "antd";
 import type { MenuProps } from "antd";
-import { useNavigate } from "@tanstack/react-router";
 import { LogoutOutlined, MenuFoldOutlined, MenuUnfoldOutlined, SettingOutlined, UserOutlined } from "@ant-design/icons";
+import { useAppHeader } from "./useAppHeader";
 
 const { Header } = Layout;
 const { Text } = Typography;
@@ -12,20 +12,14 @@ interface AppHeaderProps {
   setCollapsed: (collapsed: boolean) => void;
 }
 
-export const AppHeader: React.FC<AppHeaderProps> = ({
-  collapsed,
+export const AppHeader: React.FC<AppHeaderProps> = ({ collapsed,
   setCollapsed,
 }) => {
-  const navigate = useNavigate();
+  const { handleLogout } = useAppHeader();
 
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-
-  const handleLogout = () => {
-    console.log("Logging out...");
-    navigate({ to: "/" });
-  }
 
   const userMenuItems: MenuProps["items"] = [
     {
@@ -46,7 +40,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
       label: "Sair",
       icon: <LogoutOutlined />,
       danger: true,
-      onClick: handleLogout,
+      onClick: () => handleLogout(),
     },
   ]
 

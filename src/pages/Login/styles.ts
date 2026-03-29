@@ -11,7 +11,6 @@ export const styles: LoginStyles = {
     justifyContent: "center",
     alignItems: "center",
     minHeight: "100vh",
-    backgroundColor: "#f0f2f5",
   },
   card: {
     width: 350,

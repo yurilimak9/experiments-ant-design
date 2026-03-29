@@ -2,10 +2,12 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { message } from "antd";
 import { ApiError, apiFetch } from "../../../api/client";
+import { useCurrentUser } from "../../../hooks/useCurrentUser";
 
 export const useAppHeader = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { data: user, isLoading: isLoadingUser } = useCurrentUser();
 
   const logoutMutation = useMutation({
     mutationFn: destroySession,
@@ -27,6 +29,8 @@ export const useAppHeader = () => {
   });
 
   return {
+    user,
+    isLoadingUser,
     handleLogout: logoutMutation.mutate,
   };
 };

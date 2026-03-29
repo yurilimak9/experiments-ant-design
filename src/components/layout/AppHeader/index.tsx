@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar, Button, Dropdown, Layout, Space, theme, Typography } from "antd";
+import { Avatar, Button, Dropdown, Layout, Skeleton, Space, theme, Typography } from "antd";
 import type { MenuProps } from "antd";
 import { LogoutOutlined, MenuFoldOutlined, MenuUnfoldOutlined, SettingOutlined, UserOutlined } from "@ant-design/icons";
 import { useAppHeader } from "./useAppHeader";
@@ -15,7 +15,7 @@ interface AppHeaderProps {
 export const AppHeader: React.FC<AppHeaderProps> = ({ collapsed,
   setCollapsed,
 }) => {
-  const { handleLogout } = useAppHeader();
+  const { user, isLoadingUser, handleLogout } = useAppHeader();
 
   const {
     token: { colorBgContainer },
@@ -43,6 +43,14 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ collapsed,
       onClick: () => handleLogout(),
     },
   ]
+
+  if (isLoadingUser) {
+    return <Skeleton active />
+  }
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <Header
@@ -72,8 +80,8 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ collapsed,
 
       <Space size="middle">
         <div style={{ lineHeight: 'normal', textAlign: 'right' }}>
-          <Text strong style={{ display: 'block' }}>Admin User</Text>
-          <Text type="secondary">admin@example.com</Text>
+          <Text strong style={{ display: 'block' }}>{user.first_name} {user.last_name}</Text>
+          <Text type="secondary">{user.email}</Text>
         </div>
 
         <Dropdown menu={{ items: userMenuItems}} placement="bottomRight" arrow>

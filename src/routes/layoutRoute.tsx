@@ -1,11 +1,7 @@
 import { createRoute, redirect } from "@tanstack/react-router";
-import { apiFetch } from "../api/client";
 import { rootRoute } from "./rootRoute";
 import { MainLayout } from "../layouts/MainLayout";
-
-const fetchCurrentSession = async () => {
-  return apiFetch("/sessions/");
-}
+import { fetchCurrentUser } from "../hooks/useCurrentUser";
 
 export const layoutRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -14,8 +10,8 @@ export const layoutRoute = createRoute({
   beforeLoad: async ({ context, location }) => {
     try {
       await context.queryClient.fetchQuery({
-        queryKey: ["currentSession"],
-        queryFn: fetchCurrentSession,
+        queryKey: ["currentUser"],
+        queryFn: fetchCurrentUser,
         staleTime: 1000 * 60 * 5,
       })
     } catch {

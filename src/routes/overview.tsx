@@ -1,5 +1,5 @@
 import { createRoute } from "@tanstack/react-router";
-import { layoutRoute } from "./layoutRoute";
+import { layoutRoute } from "./layout";
 
 export const overviewRoute = createRoute({
   getParentRoute: () => layoutRoute,

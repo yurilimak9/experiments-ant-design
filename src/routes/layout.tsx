@@ -1,5 +1,5 @@
 import { createRoute, redirect } from "@tanstack/react-router";
-import { rootRoute } from "./rootRoute";
+import { rootRoute } from "./root";
 import { MainLayout } from "../layouts/MainLayout";
 import { fetchCurrentUser } from "../hooks/useCurrentUser";
 

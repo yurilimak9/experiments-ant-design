@@ -1,9 +1,9 @@
 import { createRouter } from "@tanstack/react-router";
-import { layoutRoute } from "./layoutRoute";
-import { loginRoute } from "./loginRoute";
-import { overviewRoute } from "./overviewRoute";
-import { rootRoute } from "./rootRoute";
-import { usersRoute } from "./usersRoute";
+import { layoutRoute } from "./layout";
+import { loginRoute } from "./login";
+import { overviewRoute } from "./overview";
+import { rootRoute } from "./root";
+import { usersRoute } from "./users";
 
 const routeTree = rootRoute.addChildren([
   loginRoute,

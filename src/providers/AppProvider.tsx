@@ -1,9 +1,18 @@
 import React from "react";
 import { ConfigProvider, theme } from "antd";
 import ptBr from "antd/locale/pt_BR";
-import { QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { queryClient } from "../lib/react-query";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: 1,
+      staleTime: 1000 * 60 * 5,
+    },
+  },
+});
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
   children,

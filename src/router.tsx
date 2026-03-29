@@ -1,9 +1,19 @@
-import { createRootRoute, createRoute, createRouter, Outlet } from "@tanstack/react-router";
+import { createRootRouteWithContext, createRoute, createRouter, Outlet, redirect } from "@tanstack/react-router";
 import { MainLayout } from "./layouts/MainLayout";
 import { UsersPage } from "./pages/Users";
 import { LoginPage } from "./pages/Login";
+import { apiFetch } from "./api/client";
+import type { QueryClient } from "@tanstack/react-query";
 
-const rootRoute = createRootRoute({
+const fetchCurrentSession = async () => {
+  return apiFetch("/sessions/");
+}
+
+interface MyRouterContext {
+  queryClient: QueryClient;
+}
+
+const rootRoute = createRootRouteWithContext<MyRouterContext>()({
   component: () => <Outlet />,
 })
 
@@ -11,12 +21,33 @@ const loginRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/login",
   component: LoginPage,
+  validateSearch: (search: Record<string, unknown>) => {
+    return {
+      next: search.next as string | undefined,
+    }
+  }
 });
 
 const layoutRoute = createRoute({
   getParentRoute: () => rootRoute,
   id: "_layout",
   component: MainLayout,
+  beforeLoad: async ({ context, location }) => {
+    try {
+      await context.queryClient.fetchQuery({
+        queryKey: ["currentSession"],
+        queryFn: fetchCurrentSession,
+        staleTime: 1000 * 60 * 5,
+      })
+    } catch {
+      throw redirect({
+        to: "/login",
+        search: {
+          next: location.href,
+        }
+      })
+    }
+  }
 })
 
 const indexRoute = createRoute({
@@ -39,7 +70,12 @@ const routeTree = rootRoute.addChildren([
   ])
 ])
 
-export const router = createRouter({ routeTree })
+export const router = createRouter({
+  routeTree,
+  context: {
+    queryClient: undefined!,
+  },
+})
 
 declare module "@tanstack/react-router" {
   interface Register {

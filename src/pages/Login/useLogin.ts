@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "@tanstack/react-router";
+import { useNavigate, useSearch } from "@tanstack/react-router";
 import { message } from "antd";
 import { ApiError, apiFetch } from "../../api/client";
 
@@ -11,12 +11,15 @@ export interface LoginCredentials {
 export const useLogin = () => {
   const navigate = useNavigate();
 
+  const search = useSearch({ strict: false });
+  const redirectUrl = search.next || "/";
+
   const loginMutation = useMutation({
     mutationFn: createSession,
     onSuccess: () => {
       message.success("Login realizado com sucesso!");
 
-      navigate({ to: "/" });
+      navigate({ to: redirectUrl });
     },
     onError: (error: ApiError) => {
       const errorMessage = `${error.message} ${error.action}`;

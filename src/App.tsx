@@ -1,7 +1,6 @@
 import { RouterProvider } from '@tanstack/react-router'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClient } from '@tanstack/react-query'
 import { router } from './routes';
-import { ConfigProvider, theme } from 'antd';
 import './global.css';
 
 const queryClient = new QueryClient();
@@ -13,17 +12,7 @@ router.update({
 })
 
 function App() {
-  const isDarkMode = false;
-
-  return (
-    <ConfigProvider theme={{
-      algorithm: isDarkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
-    }}>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
-    </ConfigProvider>
-  )
+  return <RouterProvider router={router} />
 }
 
 export default App

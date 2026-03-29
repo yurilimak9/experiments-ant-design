@@ -4,7 +4,6 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { useLogin } from './useLogin';
 import { styles } from './styles';
 
-
 export const LoginPage: React.FC = () => {
   const { isLoading, handleLoginSubmit } = useLogin();
 

@@ -1,7 +1,22 @@
-import React from "react";
-import { Avatar, Button, Dropdown, Layout, Skeleton, Space, theme, Typography } from "antd";
+import {
+  LogoutOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  SettingOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import type { MenuProps } from "antd";
-import { LogoutOutlined, MenuFoldOutlined, MenuUnfoldOutlined, SettingOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  Avatar,
+  Button,
+  Dropdown,
+  Layout,
+  Skeleton,
+  Space,
+  Typography,
+  theme,
+} from "antd";
+import React from "react";
 import { useAppHeader } from "./useAppHeader";
 
 const { Header } = Layout;
@@ -12,7 +27,8 @@ interface AppHeaderProps {
   setCollapsed: (collapsed: boolean) => void;
 }
 
-export const AppHeader: React.FC<AppHeaderProps> = ({ collapsed,
+export const AppHeader: React.FC<AppHeaderProps> = ({
+  collapsed,
   setCollapsed,
 }) => {
   const { user, isLoadingUser, handleLogout } = useAppHeader();
@@ -33,7 +49,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ collapsed,
       icon: <SettingOutlined />,
     },
     {
-      type: 'divider',
+      type: "divider",
     },
     {
       key: "logout",
@@ -42,10 +58,10 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ collapsed,
       danger: true,
       onClick: () => handleLogout(),
     },
-  ]
+  ];
 
   if (isLoadingUser) {
-    return <Skeleton active />
+    return <Skeleton active />;
   }
 
   if (!user) {
@@ -68,26 +84,28 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ collapsed,
       }}
     >
       <Button
-        type='text'
+        type="text"
         icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
         onClick={() => setCollapsed(!collapsed)}
         style={{
-          fontSize: '16px',
+          fontSize: "16px",
           width: 64,
           height: 64,
         }}
       />
 
       <Space size="middle">
-        <div style={{ lineHeight: 'normal', textAlign: 'right' }}>
-          <Text strong style={{ display: 'block' }}>{user.first_name} {user.last_name}</Text>
+        <div style={{ lineHeight: "normal", textAlign: "right" }}>
+          <Text strong style={{ display: "block" }}>
+            {user.first_name} {user.last_name}
+          </Text>
           <Text type="secondary">{user.email}</Text>
         </div>
 
-        <Dropdown menu={{ items: userMenuItems}} placement="bottomRight" arrow>
+        <Dropdown menu={{ items: userMenuItems }} placement="bottomRight" arrow>
           <Avatar
             size="large"
-            style={{ backgroundColor: '#1677ff', cursor: 'pointer' }}
+            style={{ backgroundColor: "#1677ff", cursor: "pointer" }}
             icon={<UserOutlined />}
           />
         </Dropdown>

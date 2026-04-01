@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { Alert, Button, Space, Table, Tooltip, Typography } from "antd";
-import { useQuery } from "@tanstack/react-query";
-import { fetchUsers } from "../../services/users";
-import type { ColumnsType } from "antd/es/table";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
+import { useQuery } from "@tanstack/react-query";
+import { Alert, Button, Space, Table, Tooltip, Typography } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { useState } from "react";
+import { fetchUsers } from "../../services/users";
 import { UserFormModal } from "./modals/create";
 
 const { Text, Title } = Typography;
@@ -17,7 +17,7 @@ interface User {
   created_at: string;
 }
 
-export const UsersPage: React.FC = () => {
+export const UsersPage = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
 
@@ -30,21 +30,19 @@ export const UsersPage: React.FC = () => {
   const handleOpenCreateModal = () => {
     setSelectedUserId(null);
     setIsModalOpen(true);
-  }
+  };
 
   const handleOpenEditModal = (userId: number) => {
     setSelectedUserId(userId);
     setIsModalOpen(true);
-  }
+  };
 
   const columns: ColumnsType<User> = [
     {
       title: "ID do Usuário",
       dataIndex: "id",
       key: "id",
-      render: (id: number) => (
-        <Text>{id}</Text>
-      ),
+      render: (id: number) => <Text>{id}</Text>,
     },
     {
       title: "Nome de Usuário",
@@ -58,17 +56,13 @@ export const UsersPage: React.FC = () => {
       title: "Nome",
       dataIndex: "first_name",
       key: "first_name",
-      render: (first_name: string) => (
-        <Text>{first_name}</Text>
-      ),
+      render: (first_name: string) => <Text>{first_name}</Text>,
     },
     {
       title: "Sobrenome",
       dataIndex: "last_name",
       key: "last_name",
-      render: (last_name: string) => (
-        <Text>{last_name}</Text>
-      ),
+      render: (last_name: string) => <Text>{last_name}</Text>,
     },
     {
       title: "E-mail",
@@ -84,7 +78,7 @@ export const UsersPage: React.FC = () => {
       key: "created_at",
       responsive: ["lg"],
       render: (dateString: string) =>
-        new Date(dateString).toLocaleDateString("pt-BR")
+        new Date(dateString).toLocaleDateString("pt-BR"),
     },
     {
       title: "Ações",
@@ -92,17 +86,17 @@ export const UsersPage: React.FC = () => {
       width: 100,
       align: "right",
       render: (_, record) => (
-        <Space size='small'>
-          <Tooltip title='Editar'>
+        <Space size="small">
+          <Tooltip title="Editar">
             <Button
-              type='text'
+              type="text"
               icon={<EditOutlined />}
-              size='small'
+              size="small"
               onClick={() => handleOpenEditModal(record.id)}
             />
           </Tooltip>
-          <Tooltip title='Excluir'>
-            <Button type='text' danger icon={<DeleteOutlined />} size='small' />
+          <Tooltip title="Excluir">
+            <Button type="text" danger icon={<DeleteOutlined />} size="small" />
           </Tooltip>
         </Space>
       ),
@@ -130,9 +124,9 @@ export const UsersPage: React.FC = () => {
 
       {isError && (
         <Alert
-          title='Erro ao carregar usuários'
-          description='Não foi possível carregar os usuários. Por favor, tente novamente mais tarde.'
-          type='error'
+          title="Erro ao carregar usuários"
+          description="Não foi possível carregar os usuários. Por favor, tente novamente mais tarde."
+          type="error"
           showIcon
         />
       )}
@@ -140,7 +134,7 @@ export const UsersPage: React.FC = () => {
       <Table
         dataSource={data}
         columns={columns}
-        rowKey='id'
+        rowKey="id"
         loading={isLoading}
         pagination={{ pageSize: 5 }}
         bordered

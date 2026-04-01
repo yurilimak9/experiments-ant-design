@@ -1,7 +1,7 @@
 import { createRoute, redirect } from "@tanstack/react-router";
-import { rootRoute } from "./root";
-import { MainLayout } from "../layouts/MainLayout";
 import { fetchCurrentUser } from "../hooks/useCurrentUser";
+import { MainLayout } from "../layouts/MainLayout";
+import { rootRoute } from "./root";
 
 export const layoutRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -13,14 +13,14 @@ export const layoutRoute = createRoute({
         queryKey: ["currentUser"],
         queryFn: fetchCurrentUser,
         staleTime: 1000 * 60 * 5,
-      })
+      });
     } catch {
       throw redirect({
         to: "/login",
         search: {
           next: location.href,
-        }
-      })
+        },
+      });
     }
-  }
-})
+  },
+});

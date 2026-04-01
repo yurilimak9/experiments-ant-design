@@ -7,4 +7,4 @@ interface MyRouterContext {
 
 export const rootRoute = createRootRouteWithContext<MyRouterContext>()({
   component: () => <Outlet />,
-})
+});

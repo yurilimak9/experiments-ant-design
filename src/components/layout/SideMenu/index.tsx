@@ -1,9 +1,9 @@
-import React from "react";
-import { Layout, Menu } from "antd";
 import { DashboardOutlined, UserOutlined } from "@ant-design/icons";
-import logoImg from "../../../assets/logo.png";
+import { Layout, Menu } from "antd";
+import React from "react";
 import iconImg from "../../../assets/icon.png";
-import { styles } from './styles';
+import logoImg from "../../../assets/logo.png";
+import { styles } from "./styles";
 
 const { Sider } = Layout;
 
@@ -13,7 +13,11 @@ interface SideMenuProps {
   onNavigate: (path: string) => void;
 }
 
-export const SideMenu: React.FC<SideMenuProps> = ({ collapsed, currentPath, onNavigate }) => {
+export const SideMenu: React.FC<SideMenuProps> = ({
+  collapsed,
+  currentPath,
+  onNavigate,
+}) => {
   const items = [
     {
       key: "/",
@@ -24,8 +28,8 @@ export const SideMenu: React.FC<SideMenuProps> = ({ collapsed, currentPath, onNa
       key: "/users",
       icon: <UserOutlined />,
       label: "Usuários",
-    }
-  ]
+    },
+  ];
 
   return (
     <Sider trigger={null} collapsible collapsed={collapsed} theme="light">
@@ -35,8 +39,8 @@ export const SideMenu: React.FC<SideMenuProps> = ({ collapsed, currentPath, onNa
           alt="Logotipo"
           style={{
             ...styles.logoImage,
-            maxHeight: collapsed ? '32px' : '',
-            maxWidth: collapsed ? '32px' : '120px',
+            maxHeight: collapsed ? "32px" : "",
+            maxWidth: collapsed ? "32px" : "120px",
           }}
         />
       </div>

@@ -4,5 +4,5 @@ import { layoutRoute } from "./layout";
 export const overviewRoute = createRoute({
   getParentRoute: () => layoutRoute,
   path: "/",
-  component: () => <h1>Dashboard (Home)</h1>
-})
+  component: () => <h1>Dashboard (Home)</h1>,
+});

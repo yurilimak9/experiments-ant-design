@@ -1,8 +1,8 @@
-import React from 'react';
-import { Form, Input, Button, Card } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { useLogin } from './useLogin';
-import { styles } from './styles';
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { Button, Card, Form, Input } from "antd";
+import React from "react";
+import { styles } from "./styles";
+import { useLogin } from "./useLogin";
 
 export const LoginPage: React.FC = () => {
   const { isLoading, handleLoginSubmit } = useLogin();
@@ -20,11 +20,14 @@ export const LoginPage: React.FC = () => {
             label="Nome de usuário"
             name="username"
             rules={[
-              { required: true, message: 'Por favor, insira seu nome de usuário!' }
+              {
+                required: true,
+                message: "Por favor, insira seu nome de usuário!",
+              },
             ]}
           >
             <Input
-              prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+              prefix={<UserOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
               placeholder="Digite seu usuário"
             />
           </Form.Item>
@@ -33,22 +36,17 @@ export const LoginPage: React.FC = () => {
             label="Senha"
             name="password"
             rules={[
-              { required: true, message: 'Por favor, insira sua senha!' }
+              { required: true, message: "Por favor, insira sua senha!" },
             ]}
           >
             <Input.Password
-              prefix={<LockOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+              prefix={<LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
               placeholder="Digite sua senha"
             />
           </Form.Item>
 
           <Form.Item style={{ marginBottom: 0 }}>
-            <Button
-              type="primary"
-              htmlType="submit"
-              loading={isLoading}
-              block
-            >
+            <Button type="primary" htmlType="submit" loading={isLoading} block>
               Entrar
             </Button>
           </Form.Item>

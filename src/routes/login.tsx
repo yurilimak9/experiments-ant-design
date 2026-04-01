@@ -1,6 +1,6 @@
 import { createRoute } from "@tanstack/react-router";
-import { rootRoute } from "./root";
 import { LoginPage } from "../pages/Login";
+import { rootRoute } from "./root";
 
 interface LoginSearch {
   next?: string;
@@ -13,6 +13,6 @@ export const loginRoute = createRoute({
   validateSearch: (search: Record<string, unknown>): LoginSearch => {
     return {
       next: search.next as string | undefined,
-    }
-  }
+    };
+  },
 });

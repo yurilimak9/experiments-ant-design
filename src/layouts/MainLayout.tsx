@@ -1,18 +1,15 @@
-import React, { useState } from "react";
-import { Breadcrumb, Layout, theme } from "antd";
-import { SideMenu } from "../components/layout/SideMenu";
-import { AppHeader } from "../components/layout/AppHeader";
 import { Outlet, useLocation, useNavigate } from "@tanstack/react-router";
+import { Breadcrumb, Layout, theme } from "antd";
+import React, { useState } from "react";
+import { AppHeader } from "../components/layout/AppHeader";
+import { SideMenu } from "../components/layout/SideMenu";
 
 const { Content } = Layout;
 
 export const MainLayout: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const {
-    token: {
-      colorBgContainer,
-      borderRadiusLG,
-    },
+    token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
   const navigate = useNavigate();
@@ -28,10 +25,7 @@ export const MainLayout: React.FC = () => {
       <Layout>
         <AppHeader collapsed={collapsed} setCollapsed={setCollapsed} />
         <Breadcrumb
-          items={[
-            { title: "Home" },
-            { title: "Usuários" },
-          ]}
+          items={[{ title: "Home" }, { title: "Usuários" }]}
           style={{ margin: "16px" }}
         />
         <Content

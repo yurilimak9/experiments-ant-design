@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Form, Input, Modal, message } from "antd";
 import { useEffect } from "react";
-import { ApiError, apiFetch } from "../../../api/client";
+import { type ApiError, apiFetch } from "../../../api/client";
 
 interface UserFormModalProps {
   isOpen: boolean;
@@ -14,6 +14,7 @@ interface UserFormData {
   first_name: string;
   last_name: string;
   email: string;
+  password: string;
 }
 
 export const UserFormModal: React.FC<UserFormModalProps> = ({
@@ -112,6 +113,13 @@ export const UserFormModal: React.FC<UserFormModalProps> = ({
           rules={[{ required: true, message: "Por favor, insira o e-mail." }]}
         >
           <Input placeholder="Ex: mariasantos@example.com" />
+        </Form.Item>
+        <Form.Item
+          name="password"
+          label="Senha:"
+          rules={[{ required: true, message: "Por favor, insira a senha." }]}
+        >
+          <Input />
         </Form.Item>
       </Form>
     </Modal>

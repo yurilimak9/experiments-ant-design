@@ -1,6 +1,6 @@
 import { DashboardOutlined, UserOutlined } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
-import React from "react";
+import type React from "react";
 import iconImg from "../../../assets/icon.png";
 import logoImg from "../../../assets/logo.png";
 import { styles } from "./styles";

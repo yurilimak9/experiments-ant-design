@@ -13,6 +13,7 @@ const routeTree = rootRoute.addChildren([
 export const router = createRouter({
   routeTree,
   context: {
+    // biome-ignore lint/style/noNonNullAssertion: contexto inicializado pelo RouterProvider
     queryClient: undefined!,
   },
 });

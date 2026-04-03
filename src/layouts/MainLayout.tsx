@@ -1,12 +1,12 @@
 import { Outlet, useLocation, useNavigate } from "@tanstack/react-router";
 import { Breadcrumb, Layout, theme } from "antd";
-import React, { useState } from "react";
+import { useState } from "react";
 import { AppHeader } from "../components/layout/AppHeader";
 import { SideMenu } from "../components/layout/SideMenu";
 
 const { Content } = Layout;
 
-export const MainLayout: React.FC = () => {
+export const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },

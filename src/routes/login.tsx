@@ -1,5 +1,5 @@
 import { createRoute } from "@tanstack/react-router";
-import { LoginPage } from "../pages/Login";
+import { LoginPage } from "../pages/login";
 import { rootRoute } from "./root";
 
 interface LoginSearch {

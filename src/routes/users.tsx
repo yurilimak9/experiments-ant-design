@@ -4,6 +4,6 @@ import { layoutRoute } from "./layout";
 
 export const usersRoute = createRoute({
   getParentRoute: () => layoutRoute,
-  path: "/users",
+  path: "/usuarios",
   component: UsersPage,
 });

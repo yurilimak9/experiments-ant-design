@@ -1,4 +1,8 @@
-import { DashboardOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  DashboardOutlined,
+  FileTextOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import type React from "react";
 import iconImg from "../../../assets/icon.png";
@@ -25,9 +29,20 @@ export const SideMenu: React.FC<SideMenuProps> = ({
       label: "Dashboard",
     },
     {
-      key: "/users",
+      key: "/usuarios",
       icon: <UserOutlined />,
       label: "Usuários",
+    },
+    {
+      key: "/pedidos",
+      icon: <FileTextOutlined />,
+      label: "Pedidos",
+      children: [
+        {
+          key: "/pedidos/ativos",
+          label: "Ativos",
+        },
+      ],
     },
   ];
 

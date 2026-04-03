@@ -2,7 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ConfigProvider, theme } from "antd";
 import ptBr from "antd/locale/pt_BR";
-import React from "react";
+import type React from "react";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,7 +17,7 @@ const queryClient = new QueryClient({
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const isDarkMode = false;
+  const isDarkMode = true;
 
   return (
     <ConfigProvider

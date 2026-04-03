@@ -117,9 +117,11 @@ export const UserFormModal: React.FC<UserFormModalProps> = ({
         <Form.Item
           name="password"
           label="Senha:"
-          rules={[{ required: true, message: "Por favor, insira a senha." }]}
+          rules={[
+            { required: !isEditing, message: "Por favor, insira a senha." },
+          ]}
         >
-          <Input />
+          <Input placeholder="Digite a senha" />
         </Form.Item>
       </Form>
     </Modal>

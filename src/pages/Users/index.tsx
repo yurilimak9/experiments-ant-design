@@ -4,44 +4,34 @@ import {
   FilterOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
-import { useQuery } from "@tanstack/react-query";
-import { Alert, Button, Space, Table, Tooltip, Typography } from "antd";
+import {
+  Alert,
+  Button,
+  Popconfirm,
+  Space,
+  Table,
+  Tooltip,
+  Typography,
+} from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { useState } from "react";
-import { fetchUsers } from "../../services/users";
 import { FiltersModal, UserFormModal } from "./modals";
+import { useUsers, type User } from "./useUsers";
 
 const { Text } = Typography;
 
-interface User {
-  id: number;
-  username: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  created_at: string;
-}
-
 export const UsersPage = () => {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
-  const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
-
-  const { data, isLoading, isError } = useQuery<User[]>({
-    queryKey: ["usersList"],
-    queryFn: fetchUsers,
-    staleTime: 1000 * 60 * 5,
-  });
-
-  const handleOpenCreateModal = () => {
-    setSelectedUserId(null);
-    setIsModalOpen(true);
-  };
-
-  const handleOpenEditModal = (userId: number) => {
-    setSelectedUserId(userId);
-    setIsModalOpen(true);
-  };
+  const {
+    isModalOpen,
+    isFilterModalOpen,
+    selectedUserId,
+    data,
+    isLoading,
+    isError,
+    setIsModalOpen,
+    setIsFilterModalOpen,
+    handleOpenCreateModal,
+    handleOpenEditModal,
+  } = useUsers();
 
   const columns: ColumnsType<User> = [
     {
@@ -55,7 +45,7 @@ export const UsersPage = () => {
       dataIndex: "username",
       key: "username",
       render: (username: string) => (
-        <Text copyable={{ text: username }}>{username}</Text>
+        <Text copyable={{ text: username }}>@{username}</Text>
       ),
     },
     {
@@ -90,7 +80,7 @@ export const UsersPage = () => {
       title: "Ações",
       key: "action",
       width: 100,
-      align: "right",
+      align: "center",
       render: (_, record) => (
         <Space size="small">
           <Tooltip title="Editar">
@@ -101,9 +91,16 @@ export const UsersPage = () => {
               onClick={() => handleOpenEditModal(record.id)}
             />
           </Tooltip>
-          <Tooltip title="Excluir">
+
+          <Popconfirm
+            title="Tem certeza que deseja excluir este usuário?"
+            description="Esta ação não pode ser desfeita."
+            onConfirm={() => console.log("Usuário excluído:", record.id)}
+            okText="Sim"
+            cancelText="Não"
+          >
             <Button type="text" danger icon={<DeleteOutlined />} size="small" />
-          </Tooltip>
+          </Popconfirm>
         </Space>
       ),
     },
@@ -111,6 +108,16 @@ export const UsersPage = () => {
 
   return (
     <Space orientation="vertical" size="middle" style={{ width: "100%" }}>
+      {isError && (
+        <Alert
+          title="Erro ao carregar usuários"
+          description="Não foi possível carregar os usuários. Por favor, tente novamente mais tarde."
+          type="error"
+          showIcon
+          closable
+        />
+      )}
+
       <Space style={{ width: "100%", justifyContent: "end" }}>
         <Button
           icon={<FilterOutlined />}
@@ -128,21 +135,12 @@ export const UsersPage = () => {
         </Button>
       </Space>
 
-      {isError && (
-        <Alert
-          title="Erro ao carregar usuários"
-          description="Não foi possível carregar os usuários. Por favor, tente novamente mais tarde."
-          type="error"
-          showIcon
-        />
-      )}
-
       <Table
         dataSource={data}
         columns={columns}
         rowKey="id"
         loading={isLoading}
-        pagination={{ pageSize: 5 }}
+        pagination={{ pageSize: 10 }}
         bordered
       />
 

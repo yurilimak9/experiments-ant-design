@@ -1,4 +1,14 @@
-import { Button, DatePicker, Form, Input, Modal } from "antd";
+import {
+  Button,
+  DatePicker,
+  Form,
+  Input,
+  Modal,
+  type TimeRangePickerProps,
+} from "antd";
+import dayjs from "dayjs";
+
+const { RangePicker } = DatePicker;
 
 interface Filters {
   username?: string;
@@ -13,6 +23,13 @@ interface FiltersModalProps {
   // onApply: (values: Filters) => void;
   onClose: () => void;
 }
+
+const rangePresets: TimeRangePickerProps["presets"] = [
+  { label: "Últimos 7 dias", value: [dayjs().add(-7, "d"), dayjs()] },
+  { label: "Últimos 14 dias", value: [dayjs().add(-14, "d"), dayjs()] },
+  { label: "Últimos 30 dias", value: [dayjs().add(-30, "d"), dayjs()] },
+  { label: "Últimos 90 dias", value: [dayjs().add(-90, "d"), dayjs()] },
+];
 
 export const FiltersModal = ({ isOpen, onClose }: FiltersModalProps) => {
   const [form] = Form.useForm<Filters>();
@@ -57,10 +74,10 @@ export const FiltersModal = ({ isOpen, onClose }: FiltersModalProps) => {
           <Input placeholder="Filtrar por e-mail" allowClear />
         </Form.Item>
         <Form.Item label="Data de Criação" name="created_at">
-          <DatePicker
+          <RangePicker
+            presets={rangePresets}
             style={{ width: "100%" }}
             format="DD/MM/YYYY"
-            placeholder="Filtrar por data"
           />
         </Form.Item>
       </Form>

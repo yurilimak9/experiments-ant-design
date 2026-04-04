@@ -9,13 +9,36 @@ const { Content } = Layout;
 
 export const MainLayout = () => {
   const {
+    location,
     colorBgContainer,
     borderRadiusLG,
     collapsed,
+    breadcrumbItems,
     setCollapsed,
     navigate,
-    location,
   } = useMain();
+
+  const renderBreadcrumbItem = (path: string, title: string, index: number) => {
+    if (index < breadcrumbItems.length - 1) {
+      return (
+        <button
+          type="button"
+          style={{
+            cursor: "pointer",
+            color: "#1677ff",
+            background: "none",
+            border: "none",
+            padding: 0,
+          }}
+          onClick={() => navigate({ to: path })}
+        >
+          {title}
+        </button>
+      );
+    }
+
+    return title;
+  };
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -27,8 +50,10 @@ export const MainLayout = () => {
       <Layout>
         <Header collapsed={collapsed} setCollapsed={setCollapsed} />
         <Breadcrumb
-          items={[{ title: "Home" }, { title: "Usuários" }]}
           style={{ margin: "16px" }}
+          items={breadcrumbItems.map(({ path, title }, index) => ({
+            title: renderBreadcrumbItem(path, title, index),
+          }))}
         />
         <Content
           style={{

@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { message } from "antd";
-import { ApiError, apiFetch } from "../../../api/client";
-import { useCurrentUser } from "../../../hooks/useCurrentUser";
+import { type ApiError, apiFetch } from "../../../../api/client";
+import { useCurrentUser } from "../../../../hooks/useCurrentUser";
 
 export const useAppHeader = () => {
   const navigate = useNavigate();

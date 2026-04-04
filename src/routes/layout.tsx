@@ -1,6 +1,6 @@
 import { createRoute, redirect } from "@tanstack/react-router";
 import { fetchCurrentUser } from "../hooks/useCurrentUser";
-import { MainLayout } from "../layouts/MainLayout";
+import { MainLayout } from "../layouts/main-layout";
 import { rootRoute } from "./root";
 
 export const layoutRoute = createRoute({

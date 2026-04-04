@@ -1,19 +1,21 @@
-import { Outlet, useLocation, useNavigate } from "@tanstack/react-router";
-import { Breadcrumb, Layout, theme } from "antd";
-import { useState } from "react";
-import { AppHeader } from "../components/layout/AppHeader";
-import { SideMenu } from "../components/layout/SideMenu";
+import { Outlet } from "@tanstack/react-router";
+import { Breadcrumb, Layout } from "antd";
+
+import { Header } from "@/layouts/main-layout/components/header";
+import { SideMenu } from "@/layouts/main-layout/components/side-menu";
+import { useMain } from "@/layouts/main-layout/useMain";
 
 const { Content } = Layout;
 
 export const MainLayout = () => {
-  const [collapsed, setCollapsed] = useState(false);
   const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
-
-  const navigate = useNavigate();
-  const location = useLocation();
+    colorBgContainer,
+    borderRadiusLG,
+    collapsed,
+    setCollapsed,
+    navigate,
+    location,
+  } = useMain();
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -23,7 +25,7 @@ export const MainLayout = () => {
         onNavigate={(to) => navigate({ to })}
       />
       <Layout>
-        <AppHeader collapsed={collapsed} setCollapsed={setCollapsed} />
+        <Header collapsed={collapsed} setCollapsed={setCollapsed} />
         <Breadcrumb
           items={[{ title: "Home" }, { title: "Usuários" }]}
           style={{ margin: "16px" }}

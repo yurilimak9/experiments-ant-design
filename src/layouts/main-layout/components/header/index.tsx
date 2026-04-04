@@ -16,10 +16,10 @@ import {
   Typography,
   theme,
 } from "antd";
-import React from "react";
-import { useAppHeader } from "./useAppHeader";
+import type React from "react";
+import { useAppHeader } from "./useHeader";
 
-const { Header } = Layout;
+const { Header: HeaderAnt } = Layout;
 const { Text } = Typography;
 
 interface AppHeaderProps {
@@ -27,7 +27,7 @@ interface AppHeaderProps {
   setCollapsed: (collapsed: boolean) => void;
 }
 
-export const AppHeader: React.FC<AppHeaderProps> = ({
+export const Header: React.FC<AppHeaderProps> = ({
   collapsed,
   setCollapsed,
 }) => {
@@ -69,7 +69,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   }
 
   return (
-    <Header
+    <HeaderAnt
       style={{
         padding: 0,
         background: colorBgContainer,
@@ -110,6 +110,6 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
           />
         </Dropdown>
       </Space>
-    </Header>
+    </HeaderAnt>
   );
 };

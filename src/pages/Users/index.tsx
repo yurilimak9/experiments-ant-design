@@ -27,10 +27,12 @@ export const UsersPage = () => {
     data,
     isLoading,
     isError,
+    setCurrentPage,
     setIsModalOpen,
     setIsFilterModalOpen,
     handleOpenCreateModal,
     handleOpenEditModal,
+    handleApplyFilters,
   } = useUsers();
 
   const columns: ColumnsType<User> = [
@@ -136,11 +138,17 @@ export const UsersPage = () => {
       </Space>
 
       <Table
-        dataSource={data}
+        dataSource={data.data}
         columns={columns}
         rowKey="id"
         loading={isLoading}
-        pagination={{ pageSize: 10 }}
+        pagination={{
+          pageSize: data.items_per_page,
+          total: data.total_items,
+          current: data.current_page,
+          showSizeChanger: false,
+          onChange: (page) => setCurrentPage(page),
+        }}
         bordered
       />
 
@@ -151,6 +159,7 @@ export const UsersPage = () => {
       />
 
       <FiltersModal
+        onApply={handleApplyFilters}
         isOpen={isFilterModalOpen}
         onClose={() => setIsFilterModalOpen(false)}
       />

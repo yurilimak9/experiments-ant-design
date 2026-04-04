@@ -6,21 +6,21 @@ import {
   Modal,
   type TimeRangePickerProps,
 } from "antd";
-import dayjs from "dayjs";
+import dayjs, { type Dayjs } from "dayjs";
 
 const { RangePicker } = DatePicker;
 
-interface Filters {
+export interface Filters {
   username?: string;
   first_name?: string;
   last_name?: string;
   email?: string;
-  created_at?: string;
+  created_at?: [Dayjs, Dayjs];
 }
 
 interface FiltersModalProps {
   isOpen: boolean;
-  // onApply: (values: Filters) => void;
+  onApply: (values: Filters) => void;
   onClose: () => void;
 }
 
@@ -31,13 +31,22 @@ const rangePresets: TimeRangePickerProps["presets"] = [
   { label: "Últimos 90 dias", value: [dayjs().add(-90, "d"), dayjs()] },
 ];
 
-export const FiltersModal = ({ isOpen, onClose }: FiltersModalProps) => {
+export const FiltersModal = ({
+  isOpen,
+  onApply,
+  onClose,
+}: FiltersModalProps) => {
   const [form] = Form.useForm<Filters>();
 
   const handleClear = () => {
     form.resetFields();
 
-    // onApply({});
+    onApply({});
+    onClose();
+  };
+
+  const handleFinish = (values: Filters) => {
+    onApply(values);
     onClose();
   };
 
@@ -58,7 +67,7 @@ export const FiltersModal = ({ isOpen, onClose }: FiltersModalProps) => {
       <Form
         form={form}
         layout="vertical"
-        // onFinish={onApply}
+        onFinish={handleFinish}
         style={{ marginTop: 16 }}
       >
         <Form.Item label="Nome de Usuário" name="username">

@@ -1,6 +1,7 @@
 import {
   DeleteOutlined,
   EditOutlined,
+  ExportOutlined,
   FilterOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
@@ -27,12 +28,14 @@ export const UsersPage = () => {
     data,
     isLoading,
     isError,
+    isExporting,
     setCurrentPage,
     setIsModalOpen,
     setIsFilterModalOpen,
     handleOpenCreateModal,
     handleOpenEditModal,
     handleApplyFilters,
+    handleExportCSV,
   } = useUsers();
 
   const columns: ColumnsType<User> = [
@@ -122,6 +125,13 @@ export const UsersPage = () => {
 
       <Space style={{ width: "100%", justifyContent: "end" }}>
         <Button
+          icon={<ExportOutlined />}
+          loading={isExporting}
+          onClick={handleExportCSV}
+        >
+          Exportar CSV
+        </Button>
+        <Button
           icon={<FilterOutlined />}
           onClick={() => setIsFilterModalOpen(true)}
         >
@@ -147,6 +157,13 @@ export const UsersPage = () => {
           total: data.total_items,
           current: data.current_page,
           showSizeChanger: false,
+          showTotal: (total) => {
+            if (total === 1) {
+              return "1 usuário encontrado";
+            }
+
+            return `${total} usuários encontrados`;
+          },
           onChange: (page) => setCurrentPage(page),
         }}
         bordered

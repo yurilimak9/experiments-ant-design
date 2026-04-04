@@ -1,7 +1,7 @@
 import { EMPTY_RESPONSE } from "@/constants/pagination";
 import type { Filters } from "@/pages/users/modals/filters";
 import type { PaginatedReponse } from "@/types/pagination";
-import { apiFetch } from "../api/client";
+import { API_BASE_URL, apiFetch } from "../api/client";
 
 export interface User {
   id: number;
@@ -12,11 +12,8 @@ export interface User {
   created_at: string;
 }
 
-export const fetchUsers = async (
-  page: number = 1,
-  filters: Filters = {},
-): Promise<PaginatedReponse<User>> => {
-  const params = new URLSearchParams({ page: page.toString() });
+const filtersToQueryParams = (filters: Filters): URLSearchParams => {
+  const params = new URLSearchParams();
 
   if (filters.username) {
     params.append("username", filters.username);
@@ -45,7 +42,36 @@ export const fetchUsers = async (
     );
   }
 
+  return params;
+};
+
+export const fetchUsers = async (
+  page: number = 1,
+  filters: Filters = {},
+): Promise<PaginatedReponse<User>> => {
+  const params = filtersToQueryParams(filters);
+
+  params.append("page", page.toString());
+
   const response = await apiFetch<PaginatedReponse<User>>(`/users/?${params}`);
 
   return response ?? EMPTY_RESPONSE;
+};
+
+export const exportUsersCSV = async (filters: Filters = {}): Promise<void> => {
+  const params = filtersToQueryParams(filters);
+
+  const response = await fetch(`${API_BASE_URL}/users/export/?${params}`, {
+    credentials: "include",
+  });
+
+  const blob = await response.blob();
+  const url = window.URL.createObjectURL(blob);
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = `usuarios_${new Date().toISOString()}.csv`;
+  link.click();
+
+  URL.revokeObjectURL(url);
 };

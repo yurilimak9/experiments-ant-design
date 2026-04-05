@@ -1,4 +1,4 @@
-export const API_BASE_URL = "http://localhost:8000/api/v1";
+import { env } from "@/config/env";
 
 export interface ApiErrorResponse {
   name?: string;
@@ -26,12 +26,12 @@ export async function apiFetch<T>(
   endpoint: string,
   options: RequestInit = {},
 ): Promise<T | null> {
-  const url = `${API_BASE_URL}${endpoint}`;
+  const url = `${env.API_URL}${endpoint}`;
   const method = (options.method || "GET").toUpperCase();
   const isMutation = ["POST", "PUT", "PATCH", "DELETE"].includes(method);
 
   if (isMutation && !getCookie("csrftoken")) {
-    await fetch(`${API_BASE_URL}/sessions/csrf/`, {
+    await fetch(`${env.API_URL}/sessions/csrf/`, {
       method: "GET",
       credentials: "include",
     });

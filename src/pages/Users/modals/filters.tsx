@@ -55,6 +55,7 @@ export const FiltersModal = ({
       title="Filtros"
       open={isOpen}
       onCancel={onClose}
+      forceRender
       footer={[
         <Button key="clear" onClick={handleClear}>
           Limpar filtros

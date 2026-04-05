@@ -75,6 +75,7 @@ export const UserFormModal: React.FC<UserFormModalProps> = ({
       confirmLoading={saveMutation.isPending || isLoadingUser}
       destroyOnHidden
       maskClosable={false}
+      forceRender
     >
       <Form
         form={form}

@@ -1,7 +1,8 @@
+import { env } from "@/config/env";
 import { EMPTY_RESPONSE } from "@/constants/pagination";
 import type { Filters } from "@/pages/users/modals/filters";
 import type { PaginatedReponse } from "@/types/pagination";
-import { API_BASE_URL, apiFetch } from "../api/client";
+import { apiFetch } from "../api/client";
 
 export interface User {
   id: number;
@@ -61,7 +62,7 @@ export const fetchUsers = async (
 export const exportUsersCSV = async (filters: Filters = {}): Promise<void> => {
   const params = filtersToQueryParams(filters);
 
-  const response = await fetch(`${API_BASE_URL}/users/export/?${params}`, {
+  const response = await fetch(`${env.API_URL}/users/export/?${params}`, {
     credentials: "include",
   });
 

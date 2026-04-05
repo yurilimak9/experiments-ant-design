@@ -36,6 +36,7 @@ export const UsersPage = () => {
     handleOpenEditModal,
     handleApplyFilters,
     handleExportCSV,
+    navigate,
   } = useUsers();
 
   const columns: ColumnsType<User> = [
@@ -43,7 +44,19 @@ export const UsersPage = () => {
       title: "ID do Usuário",
       dataIndex: "id",
       key: "id",
-      render: (id: number) => <Text>{id}</Text>,
+      render: (id: number) => (
+        <Button
+          type="link"
+          onClick={() =>
+            navigate({
+              to: "/usuarios/$userId",
+              params: { userId: String(id) },
+            })
+          }
+        >
+          {id}
+        </Button>
+      ),
     },
     {
       title: "Nome de Usuário",

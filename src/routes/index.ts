@@ -3,11 +3,11 @@ import { layoutRoute } from "./layout";
 import { loginRoute } from "./login";
 import { overviewRoute } from "./overview";
 import { rootRoute } from "./root";
-import { usersRoute } from "./users";
+import { userDetailRoute, usersRoute } from "./users";
 
 const routeTree = rootRoute.addChildren([
   loginRoute,
-  layoutRoute.addChildren([overviewRoute, usersRoute]),
+  layoutRoute.addChildren([overviewRoute, usersRoute, userDetailRoute]),
 ]);
 
 export const router = createRouter({

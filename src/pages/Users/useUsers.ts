@@ -109,5 +109,6 @@ export const useUsers = () => {
     handleOpenEditModal,
     handleApplyFilters,
     handleExportCSV,
+    navigate,
   };
 };

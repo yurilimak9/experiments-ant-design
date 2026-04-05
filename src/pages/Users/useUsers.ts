@@ -2,6 +2,8 @@ import { EMPTY_RESPONSE } from "@/constants/pagination";
 import type { Filters } from "@/pages/users/modals/filters";
 import type { PaginatedReponse } from "@/types/pagination";
 import { useQuery } from "@tanstack/react-query";
+import { useNavigate, useSearch } from "@tanstack/react-router";
+import dayjs from "dayjs";
 import { useState } from "react";
 import { exportUsersCSV, fetchUsers } from "../../services/users";
 
@@ -15,16 +17,28 @@ export interface User {
 }
 
 export const useUsers = () => {
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [filters, setFilters] = useState<Filters>({});
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
   const [isExporting, setIsExporting] = useState(false);
 
+  const navigate = useNavigate();
+  const search = useSearch({ from: "/_layout/usuarios" });
+
+  const filters: Filters = {
+    username: search.username,
+    first_name: search.first_name,
+    last_name: search.last_name,
+    email: search.email,
+    created_at:
+      search.created_at__gte && search.created_at__lte
+        ? [dayjs(search.created_at__gte), dayjs(search.created_at__lte)]
+        : undefined,
+  };
+
   const { data, isFetching, isError } = useQuery<PaginatedReponse<User>>({
-    queryKey: ["usersList", currentPage, filters],
-    queryFn: () => fetchUsers(currentPage, filters),
+    queryKey: ["usersList", search],
+    queryFn: () => fetchUsers(search.page, filters),
     initialData: EMPTY_RESPONSE,
     initialDataUpdatedAt: 0,
     staleTime: 0,
@@ -41,9 +55,33 @@ export const useUsers = () => {
   };
 
   const handleApplyFilters = (values: Filters) => {
-    console.log("Applied filters:", values);
-    setFilters(values);
-    setCurrentPage(1);
+    navigate({
+      to: "/usuarios",
+      search: {
+        page: 1,
+        username: values.username,
+        first_name: values.first_name,
+        last_name: values.last_name,
+        email: values.email,
+        created_at__gte: values.created_at?.[0].format("YYYY-MM-DD"),
+        created_at__lte: values.created_at?.[1].format("YYYY-MM-DD"),
+      },
+    });
+  };
+
+  const setCurrentPage = (page: number) => {
+    navigate({
+      to: "/usuarios",
+      search: {
+        page,
+        username: search.username,
+        first_name: search.first_name,
+        last_name: search.last_name,
+        email: search.email,
+        created_at__gte: search.created_at__gte,
+        created_at__lte: search.created_at__lte,
+      },
+    });
   };
 
   const handleExportCSV = async () => {

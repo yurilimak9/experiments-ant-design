@@ -12,4 +12,26 @@ body,
 *::before,
 *::after {
   box-sizing: border-box;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+::view-transition-old(root) {
+  animation: none;
+}
+
+::view-transition-new(root) {
+  animation: clip-circle 0.4s ease-in-out;
+  transform-origin: top right;
+}
+
+@keyframes clip-circle {
+  from {
+    clip-path: circle(0% at top right);
+  }
+  to {
+    clip-path: circle(150% at top right);
+  }
 }

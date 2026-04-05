@@ -1,4 +1,3 @@
-import { useUserDetail } from "@/pages/user-detail/useUserDetail";
 import {
   ArrowLeftOutlined,
   EditOutlined,
@@ -19,6 +18,7 @@ import {
   Tooltip,
   Typography,
 } from "antd";
+import { useUserDetail } from "@/pages/user-detail/useUserDetail";
 
 const { Title, Text } = Typography;
 

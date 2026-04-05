@@ -2,7 +2,9 @@ import {
   LogoutOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  MoonOutlined,
   SettingOutlined,
+  SunOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
@@ -11,12 +13,13 @@ import {
   Button,
   Dropdown,
   Layout,
+  Segmented,
   Skeleton,
   Space,
   Typography,
-  theme,
 } from "antd";
 import type React from "react";
+import { useHeaderStyles } from "@/layouts/main-layout/components/header/useHeaderStyles";
 import { useAppHeader } from "./useHeader";
 
 const { Header: HeaderAnt } = Layout;
@@ -31,11 +34,15 @@ export const Header: React.FC<AppHeaderProps> = ({
   collapsed,
   setCollapsed,
 }) => {
-  const { user, isLoadingUser, handleLogout } = useAppHeader();
-
   const {
-    token: { colorBgContainer },
-  } = theme.useToken();
+    theme: currentTheme,
+    user,
+    isLoadingUser,
+    setTheme,
+    handleLogout,
+  } = useAppHeader();
+
+  const styles = useHeaderStyles();
 
   const userMenuItems: MenuProps["items"] = [
     {
@@ -47,6 +54,22 @@ export const Header: React.FC<AppHeaderProps> = ({
       key: "settings",
       label: "Configurações",
       icon: <SettingOutlined />,
+    },
+    {
+      key: "theme",
+      label: (
+        <Segmented
+          block
+          size="small"
+          value={currentTheme}
+          onClick={(e) => e.stopPropagation()}
+          onChange={(value) => setTheme(value as "light" | "dark")}
+          options={[
+            { value: "light", icon: <SunOutlined /> },
+            { value: "dark", icon: <MoonOutlined /> },
+          ]}
+        />
+      ),
     },
     {
       type: "divider",
@@ -69,20 +92,7 @@ export const Header: React.FC<AppHeaderProps> = ({
   }
 
   return (
-    <HeaderAnt
-      style={{
-        padding: 0,
-        background: colorBgContainer,
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        paddingRight: 24,
-        position: "sticky",
-        top: 0,
-        zIndex: 1,
-        boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.03)",
-      }}
-    >
+    <HeaderAnt style={styles.header}>
       <Button
         type="text"
         icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}

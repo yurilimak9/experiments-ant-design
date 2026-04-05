@@ -1,10 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { message } from "antd";
+import { useTheme } from "@/contexts/theme-context";
 import { type ApiError, apiFetch } from "../../../../api/client";
 import { useCurrentUser } from "../../../../hooks/useCurrentUser";
 
 export const useAppHeader = () => {
+  const { theme, setTheme } = useTheme();
+
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { data: user, isLoading: isLoadingUser } = useCurrentUser();
@@ -29,8 +32,10 @@ export const useAppHeader = () => {
   });
 
   return {
+    theme,
     user,
     isLoadingUser,
+    setTheme,
     handleLogout: logoutMutation.mutate,
   };
 };

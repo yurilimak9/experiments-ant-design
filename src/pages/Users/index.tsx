@@ -1,19 +1,13 @@
 import {
+  CopyOutlined,
   DeleteOutlined,
   EditOutlined,
   ExportOutlined,
   FilterOutlined,
+  MoreOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
-import {
-  Alert,
-  Button,
-  Popconfirm,
-  Space,
-  Table,
-  Tooltip,
-  Typography,
-} from "antd";
+import { Alert, Button, Dropdown, Space, Table, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { FiltersModal, UserFormModal } from "./modals";
 import { type User, useUsers } from "./useUsers";
@@ -101,24 +95,28 @@ export const UsersPage = () => {
       align: "center",
       render: (_, record) => (
         <Space size="small">
-          <Tooltip title="Editar">
-            <Button
-              type="text"
-              icon={<EditOutlined />}
-              size="small"
-              onClick={() => handleOpenEditModal(record.id)}
-            />
-          </Tooltip>
-
-          <Popconfirm
-            title="Tem certeza que deseja excluir este usuário?"
-            description="Esta ação não pode ser desfeita."
-            onConfirm={() => console.log("Usuário excluído:", record.id)}
-            okText="Sim"
-            cancelText="Não"
+          <Dropdown
+            menu={{
+              items: [
+                {
+                  key: "edit",
+                  label: "Editar",
+                  icon: <EditOutlined />,
+                  onClick: () => handleOpenEditModal(record.id),
+                },
+                { key: "duplicate", label: "Duplicar", icon: <CopyOutlined /> },
+                {
+                  key: "delete",
+                  icon: <DeleteOutlined />,
+                  danger: true,
+                  label: "Excluir",
+                },
+              ],
+            }}
+            trigger={["click"]}
           >
-            <Button type="text" danger icon={<DeleteOutlined />} size="small" />
-          </Popconfirm>
+            <Button type="text" icon={<MoreOutlined />} size="small" />
+          </Dropdown>
         </Space>
       ),
     },

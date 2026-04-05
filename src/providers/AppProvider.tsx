@@ -17,7 +17,7 @@ const queryClient = new QueryClient({
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const isDarkMode = true;
+  const isDarkMode = false;
 
   return (
     <ConfigProvider

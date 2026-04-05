@@ -1,5 +1,5 @@
-import { fetchUserById, type UserDetail } from "@/services/user-detail";
 import { useQuery } from "@tanstack/react-query";
+import { fetchUserById, type UserDetail } from "@/services/user-detail";
 
 export const useUserDetail = (userId: number) => {
   const { data, isLoading, isError } = useQuery<UserDetail | null>({

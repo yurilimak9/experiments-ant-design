@@ -1,5 +1,9 @@
-import { useUserDetail } from "@/pages/users/user-details/useUserDetail";
-import { ArrowLeftOutlined, UserOutlined } from "@ant-design/icons";
+import { useUserDetail } from "@/pages/user-detail/useUserDetail";
+import {
+  ArrowLeftOutlined,
+  EditOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import { useNavigate, useParams } from "@tanstack/react-router";
 import {
   Alert,
@@ -12,6 +16,7 @@ import {
   Row,
   Space,
   Tag,
+  Tooltip,
   Typography,
 } from "antd";
 
@@ -20,7 +25,7 @@ const { Title, Text } = Typography;
 export const UserDetailPage = () => {
   const { userId } = useParams({ from: "/_layout/usuarios/$userId" });
   const navigate = useNavigate();
-  const { data: user, isLoading, isError } = useUserDetail(Number(userId));
+  const { data: user, isError } = useUserDetail(Number(userId));
 
   if (!user) {
     return (
@@ -99,7 +104,14 @@ export const UserDetailPage = () => {
         ))}
       </Row>
 
-      <Card title="Informações do usuário">
+      <Card
+        title="Informações do usuário"
+        extra={
+          <Tooltip title="Editar">
+            <Button type="text" icon={<EditOutlined />} />
+          </Tooltip>
+        }
+      >
         <Descriptions layout="horizontal" size="small">
           <Descriptions.Item label="Nome">{user.first_name}</Descriptions.Item>
           <Descriptions.Item label="Sobrenome">

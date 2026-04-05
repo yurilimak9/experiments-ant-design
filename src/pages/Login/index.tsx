@@ -1,6 +1,6 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Card, Form, Input } from "antd";
-import React from "react";
+import type React from "react";
 import { styles } from "./styles";
 import { useLogin } from "./useLogin";
 

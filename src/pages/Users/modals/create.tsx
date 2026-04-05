@@ -28,7 +28,7 @@ export const UserFormModal: React.FC<UserFormModalProps> = ({
 
   const { data: userData, isFetching: isLoadingUser } = useQuery({
     queryKey: ["user", userId],
-    queryFn: () => fetchUserById(userId!),
+    queryFn: () => fetchUserById(userId as number),
     enabled: isEditing && isOpen,
     staleTime: 0,
   });

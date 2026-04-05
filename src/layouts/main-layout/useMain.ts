@@ -1,7 +1,7 @@
-import { ROUTE_LABELS } from "@/constants/route";
 import { useLocation, useNavigate } from "@tanstack/react-router";
 import { theme } from "antd";
 import { useState } from "react";
+import { ROUTE_LABELS } from "@/constants/route";
 
 export const useMain = () => {
   const [collapsed, setCollapsed] = useState(false);

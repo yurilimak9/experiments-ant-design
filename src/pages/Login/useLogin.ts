@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { message } from "antd";
-import { ApiError, apiFetch } from "../../api/client";
+import { type ApiError, apiFetch } from "../../api/client";
 
 export interface LoginCredentials {
   username?: string;

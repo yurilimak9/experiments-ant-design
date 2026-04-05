@@ -16,7 +16,7 @@ import {
 } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { FiltersModal, UserFormModal } from "./modals";
-import { useUsers, type User } from "./useUsers";
+import { type User, useUsers } from "./useUsers";
 
 const { Text } = Typography;
 

@@ -1,6 +1,3 @@
-import iconImg from "@/assets/icon.png";
-import logoImg from "@/assets/logo.png";
-import { styles } from "@/layouts/main-layout/components/side-menu/styles";
 import {
   DashboardOutlined,
   FileTextOutlined,
@@ -8,6 +5,9 @@ import {
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import type React from "react";
+import iconImg from "@/assets/icon.png";
+import logoImg from "@/assets/logo.png";
+import { styles } from "@/layouts/main-layout/components/side-menu/styles";
 
 const { Sider } = Layout;
 

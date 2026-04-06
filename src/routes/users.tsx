@@ -1,7 +1,7 @@
 import { createRoute } from "@tanstack/react-router";
 import { UserDetailPage } from "@/pages/user-detail";
-import { UsersPage } from "../pages/users";
 import { layoutRoute } from "./layout";
+import { UsersPage } from "@/pages/Users";
 
 export const usersRoute = createRoute({
   getParentRoute: () => layoutRoute,

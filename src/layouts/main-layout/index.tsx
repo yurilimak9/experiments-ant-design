@@ -1,9 +1,8 @@
 import { Outlet } from "@tanstack/react-router";
 import { Breadcrumb, Layout } from "antd";
-
-import { Header } from "@/layouts/main-layout/components/header";
-import { SideMenu } from "@/layouts/main-layout/components/side-menu";
-import { useMain } from "@/layouts/main-layout/useMain";
+import { useMain } from "./useMain";
+import { SideMenu } from "./components/side-menu";
+import { Header } from "./components/header";
 
 const { Content } = Layout;
 

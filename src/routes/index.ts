@@ -1,3 +1,4 @@
+import type { QueryClient } from "@tanstack/react-query";
 import { createRouter } from "@tanstack/react-router";
 import { layoutRoute } from "./layout";
 import { loginRoute } from "./login";
@@ -13,8 +14,7 @@ const routeTree = rootRoute.addChildren([
 export const router = createRouter({
   routeTree,
   context: {
-    // biome-ignore lint/style/noNonNullAssertion: contexto inicializado pelo RouterProvider
-    queryClient: undefined!,
+    queryClient: undefined as unknown as QueryClient,
   },
 });
 

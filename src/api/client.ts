@@ -26,12 +26,13 @@ export async function apiFetch<T>(
   endpoint: string,
   options: RequestInit = {},
 ): Promise<T | null> {
-  const url = `${env.API_URL}${endpoint}`;
+  const baseApiUrl = `${env.BASE_API_URL}/api/v1`;
+  const url = `${baseApiUrl}${endpoint}`;
   const method = (options.method || "GET").toUpperCase();
   const isMutation = ["POST", "PUT", "PATCH", "DELETE"].includes(method);
 
   if (isMutation && !getCookie("csrftoken")) {
-    await fetch(`${env.API_URL}/sessions/csrf/`, {
+    await fetch(`${baseApiUrl}/sessions/csrf/`, {
       method: "GET",
       credentials: "include",
     });

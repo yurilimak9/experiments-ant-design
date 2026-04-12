@@ -62,9 +62,12 @@ export const fetchUsers = async (
 export const exportUsersCSV = async (filters: Filters = {}): Promise<void> => {
   const params = filtersToQueryParams(filters);
 
-  const response = await fetch(`${env.API_URL}/users/export/?${params}`, {
-    credentials: "include",
-  });
+  const response = await fetch(
+    `${env.BASE_API_URL}/api/v1/users/export/?${params}`,
+    {
+      credentials: "include",
+    },
+  );
 
   const blob = await response.blob();
   const url = window.URL.createObjectURL(blob);

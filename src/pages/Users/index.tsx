@@ -1,3 +1,5 @@
+import { FiltersModal, UserFormModal } from "@/pages/users/modals";
+import { useUsers, type User } from "@/pages/users/useUsers";
 import {
   CopyOutlined,
   DeleteOutlined,
@@ -9,8 +11,6 @@ import {
 } from "@ant-design/icons";
 import { Alert, Button, Dropdown, Space, Table, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { FiltersModal, UserFormModal } from "./modals";
-import { type User, useUsers } from "./useUsers";
 
 const { Text } = Typography;
 
@@ -23,6 +23,7 @@ export const UsersPage = () => {
     isLoading,
     isError,
     isExporting,
+    hasPermission,
     setCurrentPage,
     setIsModalOpen,
     setIsFilterModalOpen,
@@ -135,13 +136,16 @@ export const UsersPage = () => {
       )}
 
       <Space style={{ width: "100%", justifyContent: "end" }}>
-        <Button
-          icon={<ExportOutlined />}
-          loading={isExporting}
-          onClick={handleExportCSV}
-        >
-          Exportar CSV
-        </Button>
+        {hasPermission("accounts.export_users") && (
+          <Button
+            icon={<ExportOutlined />}
+            loading={isExporting}
+            onClick={handleExportCSV}
+          >
+            Exportar CSV
+          </Button>
+        )}
+
         <Button
           icon={<FilterOutlined />}
           onClick={() => setIsFilterModalOpen(true)}

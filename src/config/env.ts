@@ -1,4 +1,4 @@
-const requiredEnvVars = ["VITE_API_URL"] as const;
+const requiredEnvVars = ["VITE_BASE_API_URL"] as const;
 
 for (const key of requiredEnvVars) {
   if (!import.meta.env[key]) {
@@ -7,7 +7,7 @@ for (const key of requiredEnvVars) {
 }
 
 export const env = {
-  API_URL: import.meta.env.VITE_API_URL as string,
+  BASE_API_URL: import.meta.env.VITE_BASE_API_URL as string,
   MODE: import.meta.env.MODE,
   IS_DEV: import.meta.env.DEV,
   IS_PROD: import.meta.env.PROD,

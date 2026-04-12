@@ -1,7 +1,8 @@
 import { createRoute } from "@tanstack/react-router";
 import { UserDetailPage } from "@/pages/user-detail";
+import { UsersPage } from "@/pages/users";
+import { requirePermission } from "@/routes/guards";
 import { layoutRoute } from "./layout";
-import { UsersPage } from "@/pages/Users";
 
 export const usersRoute = createRoute({
   getParentRoute: () => layoutRoute,
@@ -31,5 +32,6 @@ export const usersRoute = createRoute({
 export const userDetailRoute = createRoute({
   getParentRoute: () => layoutRoute,
   path: "/usuarios/$userId",
+  beforeLoad: requirePermission("dash.users.view_detail"),
   component: UserDetailPage,
 });

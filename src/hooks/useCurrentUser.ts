@@ -6,6 +6,7 @@ export interface User {
   first_name: string;
   last_name: string;
   email: string;
+  permissions: string[];
 }
 
 export const fetchCurrentUser = async (): Promise<User | null> => {

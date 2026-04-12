@@ -3,7 +3,8 @@ import { useNavigate, useSearch } from "@tanstack/react-router";
 import dayjs from "dayjs";
 import { useState } from "react";
 import { EMPTY_RESPONSE } from "@/constants/pagination";
-import type { Filters } from "@/pages/users/modals/filters";
+import { usePermissions } from "@/hooks/usePermissions";
+import type { Filters } from "@/pages/Users/modals/filters";
 import type { PaginatedReponse } from "@/types/pagination";
 import { exportUsersCSV, fetchUsers } from "../../services/users";
 
@@ -17,6 +18,8 @@ export interface User {
 }
 
 export const useUsers = () => {
+  const { hasPermission } = usePermissions();
+
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
@@ -102,6 +105,7 @@ export const useUsers = () => {
     data,
     isError,
     isExporting,
+    hasPermission,
     setCurrentPage,
     setIsModalOpen,
     setIsFilterModalOpen,

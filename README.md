@@ -1,5 +1,3 @@
-# Seguros Promo - Frontend
-
 ## Pré-requisitos
 
 - [NVM](https://github.com/nvm-sh/nvm) instalado
